@@ -407,6 +407,9 @@ async function buildInput(field, rule, schema, isPk, isOptional) {
 
         if (isPk) {
             input.placeholder = 'Leave blank for a new record';
+        } else if (field === 'Image_URL') {
+            input.placeholder = 'images/your-picture.jpg';
+            note.textContent = 'Optional: path to a picture in public/images. Leave blank to show a "No image" placeholder.';
         } else if (isOptional) {
             input.placeholder = 'Filled in automatically';
         } else {
