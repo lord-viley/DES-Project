@@ -1,5 +1,6 @@
 // Customer screen: browse products, order, cancel, request a return
 let discount = 0;
+let allProducts = [];
 
 async function api(url, options) {
     const response = await fetch(url, options);
@@ -22,14 +23,46 @@ function money(value) {
     return Number(value).toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 });
 }
 
+// Fetch the products once and remember them
 async function loadProducts() {
-    const { data: products } = await api('/api/shop/products');
     const list = document.getElementById('productList');
+    const { ok, data } = await api('/api/shop/products');
+
+    if (!ok) {
+        list.textContent = data.message || 'Could not load products.';
+        return;
+    }
+
+    allProducts = data;
+    renderProducts();
+}
+
+// Draw the products that match the search box (all of them when it is empty)
+function renderProducts() {
+    const list = document.getElementById('productList');
+    const query = document.getElementById('productSearch').value.trim().toLowerCase();
+
+    const matches = allProducts.filter((product) =>
+        product.Product_Name.toLowerCase().includes(query) ||
+        product.Category.toLowerCase().includes(query)
+    );
+
     list.innerHTML = '';
 
-    products.forEach((product) => {
+    if (matches.length === 0) {
+        const note = document.createElement('p');
+        note.className = 'hint';
+        note.textContent = allProducts.length === 0
+            ? 'No products are available yet.'
+            : `No products match "${query}".`;
+        list.appendChild(note);
+        return;
+    }
+
+    matches.forEach((product) => {
         const card = document.createElement('div');
         card.className = 'table-card';
+
         const img = document.createElement('img');
         img.className = 'product-img';
         img.alt = product.Product_Name;
@@ -64,8 +97,12 @@ async function loadProducts() {
 }
 
 async function loadOrders() {
-    const { data: orders } = await api('/api/shop/orders');
     const list = document.getElementById('orderList');
+    const { ok, data: orders } = await api('/api/shop/orders');
+    if (!ok) {
+        list.textContent = orders.message || 'Could not load your orders.';
+        return;
+    }
     list.innerHTML = '';
 
     if (orders.length === 0) {
@@ -170,4 +207,9 @@ document.addEventListener('DOMContentLoaded', async function () {
     } catch (error) {
         console.error('Error loading shop:', error);
     }
+});
+
+// Search as the customer types
+document.addEventListener('DOMContentLoaded', function () {
+    document.getElementById('productSearch').addEventListener('input', renderProducts);
 });

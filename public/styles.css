@@ -252,18 +252,18 @@ button:hover {
     white-space: nowrap;
 }
 
+
 .data-table td {
-    padding: 10px 12px;
-    border-bottom: 1px solid var(--line);
-    white-space: nowrap;
+    color: #000000;
+    background: #fde6d3;
 }
 
-.data-table tbody tr:nth-child(even) {
-    background: #f7f7f5;
+.data-table tbody tr:nth-child(even) td {
+    background: #fbd5b8;
 }
 
-.data-table tbody tr:hover {
-    background: #fff1ea;
+.data-table tbody tr:hover td {
+    background: #ffc59a;
 }
 
 /* Update form helpers */
@@ -418,18 +418,6 @@ body.dashboard-page {
     color: #ffffff;
 }
 
-.data-table td {
-    color: #16161a;
-    background: #ffffff;
-}
-
-.data-table tbody tr:nth-child(even) td {
-    background: #f1f1ee;
-}
-
-.data-table tbody tr:hover td {
-    background: #fff1ea;
-}
 
 @media (max-width: 800px) {
     body.dashboard-page {
@@ -835,8 +823,238 @@ body.login-page {
    }
 
    .product-img { width: 72px; height: 72px; object-fit: cover; border-radius: 6px; margin-right: 15px; background: #e9ecef; }
-   .product-info { flex: 1; }
+
 
    @media (max-width: 600px) {
        .product-img { width: 100%; height: 160px; margin: 0 0 10px; }
    }
+
+   /* ---------- Customer shop page: orange card ---------- */
+body.shop-page .card-container {
+    background: #ff5a1f;
+    border-top-color: #0b0b0d;
+}
+
+body.shop-page .hint,
+body.shop-page label,
+body.shop-page .section-title,
+body.shop-page h2 {
+    color: #0b0b0d;
+}
+
+body.shop-page h2::after {
+    background: #0b0b0d;
+}
+
+body.shop-page .back-link {
+    color: #0b0b0d;
+}
+
+body.shop-page .back-link:hover {
+    color: #ffffff;
+}
+
+   /* ---------- Shop page layout ---------- */
+   #productList {
+       display: flex;
+       flex-direction: column;
+       gap: 10px;
+   }
+
+   #productList .table-card::before {
+       display: none;
+   }
+
+   .table-card .info {
+       flex: 1;
+       min-width: 0;
+   }
+
+   .table-card .info strong {
+       display: block;
+   }
+
+   .table-card .info .field-note {
+       margin-top: 4px;
+       font-size: 13px;
+       color: #c9c9cf;
+   }
+
+   .section-title {
+       margin: 28px 0 12px;
+       font-family: var(--display);
+       font-size: 26px;
+       font-weight: 800;
+       text-transform: uppercase;
+   }
+
+   .alert-box {
+       grid-column: 1 / -1;
+       padding: 14px 18px;
+       background: #fff0c2;
+       border-left: 5px solid #8a5a00;
+       border-radius: 4px;
+       color: #4a3000;
+       font-size: 14px;
+       font-weight: 600;
+   }
+
+   .alert-box ul {
+       margin: 8px 0 0 20px;
+       font-weight: 400;
+   }
+
+   .badge-cancelled {
+       background: #fde0e3;
+       color: #b4172a;
+   }
+/* ---------- "Pay with" dropdown: matches the orders table ---------- */
+body.shop-page #paymentMethod {
+    background: #fde6d3;          /* same peach as the table rows */
+    color: #000000;               /* black text, same as the table */
+    border: 2px solid #0b0b0d;    /* black edge, like the table header */
+    font-weight: 600;
+    cursor: pointer;
+}
+
+body.shop-page #paymentMethod:hover {
+    background: #ffc59a;          /* same colour a table row turns on hover */
+}
+
+body.shop-page #paymentMethod:focus {
+    border-color: #0b0b0d;
+    box-shadow: 0 0 0 3px rgba(11, 11, 13, 0.45);
+}
+
+body.shop-page #paymentMethod option {
+    background: #fde6d3;          /* the list that drops down */
+    color: #000000;
+}
+
+/* ---------- NEXSPORT login description ---------- */
+.brand-copy p {
+    font-size: 14px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 3px;
+    color: #ff5a1f;
+}
+
+/* ---------- Table size ---------- */
+.data-table {
+    font-size: 16px;
+}
+
+.data-table th {
+    padding: 16px 22px;
+    font-size: 13px;
+}
+
+.data-table td {
+    padding: 16px 22px;
+    border-bottom: 1px solid #e8b996;
+    white-space: nowrap;
+}
+
+.table-wrapper {
+    margin-top: 16px;
+}
+
+   /* ---------- Footer ---------- */
+   .site-footer {
+       margin-top: 40px;
+       padding-top: 16px;
+       border-top: 1px solid rgba(11, 11, 13, 0.35);
+       text-align: center;
+       font-size: 12px;
+       font-weight: 600;
+       letter-spacing: 1px;
+       color: #0b0b0d;
+   }
+
+/* ---------- Product search box ---------- */
+body.shop-page #productSearch {
+    background: #fde6d3;
+    color: #000000;
+    border: 2px solid #0b0b0d;
+    font-weight: 600;
+}
+
+body.shop-page #productSearch::placeholder {
+    color: #5a4a40;
+    font-weight: 400;
+}
+
+body.shop-page #productSearch:hover {
+    background: #ffc59a;
+}
+
+body.shop-page #productSearch:focus {
+    background: #ffc59a;
+    border-color: #0b0b0d;
+    box-shadow: 0 0 0 3px rgba(11, 11, 13, 0.45);
+}
+
+/* ---------- Pay with: bottom of the shop page ---------- */
+body.shop-page .payment-box {
+    margin-top: 32px;
+}
+/* ---------- Login card: dark theme ---------- */
+.login-card {
+    max-width: 420px;
+    padding: 40px 36px;
+    background: #0b0b0d;
+    border-top: 6px solid #ff5a1f;
+    box-shadow: 0 24px 60px rgba(0, 0, 0, 0.55);
+}
+
+.login-card h2 {
+    color: #ffffff;
+}
+
+.login-card label {
+    color: #cfcfd4;
+}
+
+.login-card input {
+    background: #1d1d22;
+    border: 2px solid #34343b;
+    color: #ffffff;
+    color-scheme: dark;
+}
+
+.login-card input::placeholder {
+    color: #7d7d86;
+}
+
+.login-card input:focus {
+    border-color: #ff5a1f;
+    box-shadow: 0 0 0 3px rgba(255, 90, 31, 0.3);
+}
+
+/* stops the browser's saved-password fill from turning the box white */
+.login-card input:-webkit-autofill {
+    -webkit-box-shadow: 0 0 0 1000px #1d1d22 inset;
+    -webkit-text-fill-color: #ffffff;
+    caret-color: #ffffff;
+}
+
+.login-card button[type="submit"] {
+    margin-top: 24px;
+    padding: 14px;
+    font-size: 15px;
+}
+
+.login-card button[type="submit"]:hover {
+    background: #ffffff;
+    color: #0b0b0d;
+    border-color: #ffffff;
+}
+
+.login-card .link-btn {
+    color: #b4b4bc;
+}
+
+.login-card .link-btn:hover {
+    color: #ff5a1f;
+}

@@ -407,9 +407,8 @@ async function buildInput(field, rule, schema, isPk, isOptional) {
 
         if (isPk) {
             input.placeholder = 'Leave blank for a new record';
-        } else if (field === 'Image_URL') {
-            input.placeholder = 'images/your-picture.jpg';
-            note.textContent = 'Optional: path to a picture in public/images. Leave blank to show a "No image" placeholder.';
+           } else if (field === 'Image_URL') {
+       input.placeholder = 'images/your-picture.jpg';
         } else if (isOptional) {
             input.placeholder = 'Filled in automatically';
         } else {
@@ -462,14 +461,16 @@ async function loadUpdateForm() {
         div.appendChild(label);
         div.appendChild(await buildInput(field, rule, schema, isPk, isOptional));
 
-        if (isPk || isOptional) {
-            const note = document.createElement('div');
-            note.className = 'field-note';
-            note.textContent = isPk
-                ? 'Auto-numbered when blank.'
-                : 'Optional: the system fills this in if left blank.';
-            div.appendChild(note);
-        }
+           if (isPk || isOptional) {
+       const note = document.createElement('div');
+       note.className = 'field-note';
+       note.textContent = isPk
+           ? 'Auto-numbered when blank.'
+           : field === 'Image_URL'
+               ? 'Optional: path to a picture in public/images (e.g. images/ball.jpg). Leave blank for a placeholder.'
+               : 'Optional: the system fills this in if left blank.';
+       div.appendChild(note);
+   }
 
         dynamicFields.appendChild(div);
     }
