@@ -6,7 +6,11 @@ const path = require('path');
 const mysql = require('mysql2/promise');
 
 const DB_NAME = 'sporting_goods_store';
-const FILES = ['01_schema.sql', '02_data_and_queries.sql', '03_indexes_views_catalog.sql', '04_automation.sql'];
+// Every numbered file in sql/ runs in order (01_..., 02_..., 05_Images.sql, ...),
+// so a teammate's new SQL file is picked up without editing this script.
+const FILES = fs.readdirSync(path.join(__dirname, '..', 'sql'))
+    .filter((name) => /^\d+_.*\.sql$/i.test(name))
+    .sort();
 
 // Split a .sql file into statements. Understands the DELIMITER command that
 // MySQL Workbench uses for trigger bodies, and skips whole-line comments.
